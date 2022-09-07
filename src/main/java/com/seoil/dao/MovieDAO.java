@@ -119,5 +119,45 @@ public class MovieDAO {
 	
 	public void deleteMovie(int code) {
 		String sql="delete from movie where code=?";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		try {
+			conn=DBManager.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, code);
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			util.DBManager.close(pstmt,conn);
+		}
+	}
+	public void updateProduct(MovieVO mVO) {
+		String sql="update movie set title=?,price=?,director=?,actor=?,poster=?,synopsis=? where code=?";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		try {
+			MovieVO mvo=new MovieVO();
+			conn=DBManager.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, mVO.getTitle());
+			pstmt.setInt(2, mVO.getPrice());
+			pstmt.setString(3, mVO.getDirector());
+			pstmt.setString(4, mVO.getActor());
+			pstmt.setString(5, mVO.getPoster());
+			pstmt.setString(6, mVO.getSynopsis());
+			pstmt.setInt(7, mVO.getCode());
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			util.DBManager.close(pstmt,conn);
+		}
 	}
 }
+
