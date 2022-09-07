@@ -96,9 +96,17 @@ public class MovieDAO {
 		try {
 			conn=DBManager.getConnection();
 			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, code);
+			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
-				
+				mvo.setCode(rs.getInt("code"));
+				mvo.setTitle(rs.getString("title"));
+				mvo.setPrice(rs.getInt("price"));
+				mvo.setDirector(rs.getString("director"));
+				mvo.setActor(rs.getString("actor"));
+				mvo.setPoster(rs.getString("poster"));
+				mvo.setSynopsis(rs.getString("synopsis"));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
