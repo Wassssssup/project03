@@ -100,6 +100,7 @@ public class MovieDAO {
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
+				mvo=new MovieVO();
 				mvo.setCode(rs.getInt("code"));
 				mvo.setTitle(rs.getString("title"));
 				mvo.setPrice(rs.getInt("price"));
